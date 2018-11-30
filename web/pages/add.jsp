@@ -21,11 +21,11 @@
         <div class="w3-card-4">
             <%--<p><!% request.getAttribute("heroName")%></p>--%>
 <%
-    if (request.getAttribute("heroName") != null) {
+    if ((request.getAttribute("heroName")) != null && (request.getAttribute("active") != null)) {
         out.println("<div class=\"w3-panel w3-green w3-display-container w3-card-4 w3-round\">\n" +
                 "   <span onclick=\"this.parentElement.style.display='none'\"\n" +
                 "   class=\"w3-button w3-margin-right w3-display-right w3-round-large w3-hover-green w3-border w3-border-green w3-hover-border-grey\">×</span>\n" +
-                "   <h5>User '" + request.getAttribute("heroName") + "' added!</h5>\n" +
+                "   <h5>User '" + request.getAttribute("heroName") + "\'"+ request.getAttribute("active")+"</h5>\n" +
                 "</div>");
     }
 %>
@@ -40,7 +40,6 @@
 
         if(hero!=null) {
             name = hero.getName();
-            id = Integer.toString(hero.getId());
             universe = hero.getUniverse();
             power = Integer.toString(hero.getPower());
             description = hero.getDescreption();
@@ -52,9 +51,7 @@
                  <p><b>Имя супергероя:</b><br>
                      <input type="text" name="name" size="40" value="<%=name%>" class="w3-input w3-animate-input w3-border w3-round-large" style="width: 30%">
                  </p>
-                     <p><b>ID супергероя:</b><br>
-                         <input type="text" name="id" size="40"value="<%=id%>"class="w3-input w3-animate-input w3-border w3-round-large" style="width: 30%">
-                     </p>
+
                      <p><b>Вселенаая откуда супергерой:</b><br>
                          <input type="text" name="universe" size="40"value="<%=universe%>"class="w3-input w3-animate-input w3-border w3-round-large" style="width: 30%">
                      </p>
@@ -78,7 +75,7 @@
                     <p><b>Номер телефона супергероя:</b><br>
                         <input type="text" name="phone" size="40"value="<%=telephone%>">
                     </p>
-                <input type="hidden" name="hero" value="<%=hero%>">
+                    <input type="hidden" name="id" value="<%=id%>">
                     <button class="w3-btn w3-green w3-round-large w3-margin-bottom" type="submit">Submit</button>
                     </form>
                 </div>

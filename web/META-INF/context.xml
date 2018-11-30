@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context>
+    <Resource
+            name="jdbc/db"
+            auth="Container"
+            type="javax.sql.DataSource"
+            maxActive="100"
+
+            url="jdbc:mysql://localhost/data_of_heroes?serverTimezone=Europe/Moscow&useSSL=false"
+            driverClassName="com.mysql.jdbc.Driver"
+            username="root"
+            password="root"
+            validationQuery="select 1"
+    />
+</Context>

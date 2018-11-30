@@ -1,9 +1,16 @@
 package app.entities;
 
-import java.io.File;
 
-public class Hero {
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.io.File;
+import java.io.Serializable;
+
+public class Hero implements Serializable {
     private int id;
+    @NotNull(message="Имя должно быть задано")
+    @Size(max = 25, message="Длина фамилии должна быть меньше 25")
     private String name;
     private String universe;
     private int power;
@@ -11,29 +18,49 @@ public class Hero {
     private boolean alive;
    // private String logo;
     private String phone;
-
-    public Hero(String name, int id, String universe, int power, boolean alive, String description, String phone){
-        this.name=name;
-        this.id =id;
-        this.universe=universe;
-        this.power = power;
-        this.alive =alive;
-        this.description=description;
-        this.phone=phone;
+    static int nextId=0;
+    public Hero (String name){
+        this(name,0,null,0,false,null,null);
+        //nextId++;
+        //id=nextId;
+    }
+    public Hero (String name, int id){
+        this(name,id,null,0,false,null,null);
+    }
+    public  Hero(String name, int id, String universe, int power, boolean alive, String description, String phone){
+        setName(name);
+        setId(id);
+        setUniverse(universe);
+        setPower(power);
+        setAlive(alive);
+        setDescription(description);
+        setPhone(phone);
+        // this.logo=logo;
+        //nextId++;
+        //id=nextId;
+    }
+    public void setFields(String name, String universe, int power, boolean alive, String description, String phone){
+        setName(name);
+        setUniverse(universe);
+        setPower(power);
+        setAlive(alive);
+        setDescription(description);
+        setPhone(phone);
        // this.logo=logo;
     }
     public int getId(){
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    private void setId(int id){
+        this.id=id;
     }
-
+    //@NotNull
     public void setName(String name) {
-        this.name = name;
+        if(name!=null)
+            this.name = name;
     }
-
+    //@NotNull
     public String getName() {
         return name;
     }
@@ -41,11 +68,12 @@ public class Hero {
     public String getUniverse() { return universe; }
 
     public void setUniverse(String universe) {
+        if(universe != null && universe.length()<10)
         this.universe = universe;
     }
 
     public void setPower(int power) {
-        this.power = power;
+        if(power>0 && power<100) this.power = power;
     }
 
     public int getPower() {
@@ -53,6 +81,7 @@ public class Hero {
     }
 
     public void setDescription(String descreption) {
+        if(descreption!= null && descreption.length()<255)
         this.description = descreption;
     }
 
@@ -69,6 +98,7 @@ public class Hero {
     }
 
     public void setPhone(String phone) {
+        if(phone!=null && phone.length()<12)
         this.phone = phone;
     }
 
@@ -105,27 +135,6 @@ public class Hero {
         return str.toString();
     }
 
-    @Override
-    public int hashCode() {
-        //todo Допилить метод
-        //todo запилить проверку
-        int result = name != null ? name.hashCode() : 0;
-        result = 31 * result + (universe != null ? universe.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (phone != null ? phone.hashCode() : 0);
-        result = 31 * result + (universe != null ? 1231 : 1237);
-        result = 31 * result + (id != 0 ? 1231 : 0);
 
-        return result;
-    }
 
-    @Override
-    public boolean equals(Object obj) {
-        //todo Допилить реализацию
-        boolean flag = false;
-        if(obj==this) return true;
-        if(obj==null) return false;
-
-        return super.equals(obj);
-    }
 }

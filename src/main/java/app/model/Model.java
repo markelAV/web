@@ -25,7 +25,7 @@ public class Model {
             String[] universe = new String[]{"DC", "Marvel", "Marvel", "Marvel", "Marvel"};
             String[] description = new String[]{"Hero description 1", "Hero description 2", "Hero description 3", "Hero description 4", "Hero description 5"};
             String[] phone = new String[]{"81", "82", "83", "84", "85"};
-            int[] id = new int[]{111, 112, 113, 114, 115};
+            //int[] id = new int[]{111, 112, 113, 114, 115};
             int[] power = new int[]{74, 80, 72, 65, 81};
             boolean[] alive = new boolean[]{true, true, false, true, false};
 
@@ -33,7 +33,7 @@ public class Model {
                 //byte[] encodeBase64 = Base64.encodeBase64(extractBytes(namesFile[i]));
                // String base64Encoded = new String(encodeBase64, "UTF-8");
 
-                heroes[i] = new Hero(names[i], id[i], universe[i], power[i], alive[i], description[i], phone[i]);
+               // heroes[i] = new Hero(names[i],universe[i], power[i], alive[i], description[i], phone[i]);
 
             }
 
@@ -54,27 +54,21 @@ public class Model {
         }
     }
 
-    public void add(Hero hero ) {
+    public void add(Hero hero) {
         model.add(hero);
     }
 
-    public void remove (Hero hero){
-        model.remove(hero);
+    public void remove (int idHero){
+        Hero hero = findHero(idHero);
+        if(hero!=null){
+            model.remove(hero);
+        }
         System.out.println("Герой с данным именем успешно удален");
     }
-    public void remove (String nameHero){
-        Hero hero = findHero(nameHero);
-        if(hero!=null){
-            System.out.println("Герой с данным именем найден");
-            remove(hero);
-        }
-        System.out.println("Герой с данным именем не найден");
-    }
-    public Hero findHero(String name){
+    public Hero findHero(int id){
         Hero hero = null;
-
         for (Hero herof: model) {
-            if(herof.getName().equals(name)){
+            if(herof.getId()==id){
                 hero=herof;
                 break;
             }

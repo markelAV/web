@@ -69,11 +69,16 @@
                         </span>
                         <span class="product-caption">
                                <p class="product"><%=s.getDescreption()%></p>
+                            <p class="product"><%=s.getId()%></p>
                         </span>
                       <center>
-                          <button class ="buttons" onclick="location.href='/hero?name=<%=s.getName()%>'">View</button>
-                          <button class ="buttons" onclick="location.href='/add?name=<%=s.getName()%>'">Update</button>
-                          <form method="delete"><input type="hidden" name="name"value="<%=s.getName()%>"><button class ="buttons" type="submit">Delete</button></form>
+                          <button class ="buttons" onclick="location.href='/hero?id=<%=s.getId()%>'">View</button>
+                          <button class ="buttons" onclick="location.href='/add?id=<%=s.getId()%>'">Update</button>
+                          <button class ="buttons" onclick="location.href='/list?alive=<%=request.getParameter("alive")%>&id=<%=s.getId()%>'">Delete</button>
+                          <%--<form method="get">
+                              <input type="hidden" name="name"value="<%=s.getId()%>">
+                              <button class ="buttons" type="submit">Delete</button>
+                          </form>--%>
                         </center>
                       </div>
                     </div>

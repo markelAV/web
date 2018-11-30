@@ -1,9 +1,10 @@
 package app.servlets;
 
+import app.dao.HeroDao;
+import app.dao.HeroDaoImpl;
 import app.entities.Hero;
 import app.model.Model;
-import org.apache.commons.codec.binary.Base64;
-
+//import org.apache.commons.codec.binary.Base64;
 import javax.imageio.ImageIO;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,11 +20,12 @@ import java.io.IOException;
 public class AddServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String nameHero = req.getParameter("name");
-        if(nameHero!=null){
-            Model model = Model.getInstance();
-            req.setAttribute("hero",model.findHero(nameHero));
+       String strId = req.getParameter("id");
+       if(strId != null){
+           HeroDao hd = new HeroDaoImpl();
+           req.setAttribute("hero",hd.getHeroById(Integer.parseInt(strId)));
         }
+
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("pages/add.jsp");
         requestDispatcher.forward(req, resp);
     }
@@ -33,34 +35,39 @@ public class AddServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            String name = req.getParameter("name");
-            int id = Integer.parseInt(req.getParameter("id"));
-            String universe = req.getParameter("universe");
-            int power = Integer.parseInt(req.getParameter("power"));
-            boolean alive = Boolean.parseBoolean(req.getParameter("alive"));
-            String description = req.getParameter("description");
-            String phone = req.getParameter("phone");
-           // File file = (File)req.getAttribute("photo");
-            //byte[] encodeBase64 = Base64.encodeBase64(extractBytes(file));
-           // String base64Encoded = new String(encodeBase64, "UTF-8");
-            Hero heroI = (Hero)req.getAttribute("hero");
-            if(heroI!=null){
-                heroI.setName(name);
-                heroI.setId(id);
-                heroI.setUniverse(universe);
-                heroI.setPower(power);
-                heroI.setAlive(alive);
-                heroI.setDescription(description);
-                heroI.setPhone(phone);
-            }
-            else {
-                Hero hero = new Hero(name, id, universe, power, alive, description, phone);
-                Model model = Model.getInstance();
-                model.add(hero);
-            }
+            String active = "";
+            if (req.getParameter("name").length()>0) {
+                String name = req.getParameter("name");
+                String strId = req.getParameter("id");
+                String universe = req.getParameter("universe");
+                String strpower = req.getParameter("power");
+                boolean alive = Boolean.parseBoolean(req.getParameter("alive"));
+                String description = req.getParameter("description");
+                String phone = req.getParameter("phone");
+                // File file = (File)req.getAttribute("photo");
+                //byte[] encodeBase64 = Base64.encodeBase64(extractBytes(file));
+                // String base64Encoded = new String(encodeBase64, "UTF-8");
+                int power =0 ;
+                if(strpower.length()>0){power = Integer.parseInt(strpower);}
+                Hero upHero;
+                HeroDao hd = new HeroDaoImpl();
 
-            req.setAttribute("heroName", name);
-            doGet(req, resp);
+                if (strId.length()>0) {
+                    hd.updateHero(new Hero(name, Integer.parseInt(strId), universe, power, alive, description, phone));
+                    active = "Hero changed!";
+
+                }
+                else {
+                    hd.addHero(new Hero(name, 0, universe, power, alive, description, phone));
+                    active = "Hero added!";
+                }
+
+
+                    req.setAttribute("active", active);
+                req.setAttribute("heroName", name);
+                 RequestDispatcher requestDispatcher = req.getRequestDispatcher("pages/add.jsp");
+                requestDispatcher.forward(req, resp);
+            }
         }
         catch (IOException e){
             System.out.println(e.getMessage());

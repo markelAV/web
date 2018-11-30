@@ -13,9 +13,9 @@ import java.io.IOException;
 public class HeroServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String name = req.getParameter("name");
+        int id = Integer.parseInt(req.getParameter("id"));
         Model model = Model.getInstance();
-        Hero hero = model.findHero(name);
+        Hero hero = model.findHero(id);
         req.setAttribute("hero",hero);
 
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("pages/hero.jsp");
