@@ -14,9 +14,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 //TODO добавить методов Create and Deleate
+
+//этот класс вообще используется? я так понял все теперь через HeroDaoImpl работает? Что-то я запутался что кого вызывает
+//при встрече спрошу у тебя как и что вызыват
+
+
+//переименовать в HeroService
 public class Model {
     private static Model instance = new Model();
-    private Hero[] heroes;
+    private Hero[] heroes; // List<Hero> heroes = new ArrayList()
+
+    //переимеровать в  fillTestData()
+    //пусть она сразу заполняет heroes
     private void heroInstance(){
 
             heroes = new Hero[5];
