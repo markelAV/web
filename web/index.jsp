@@ -30,6 +30,7 @@
 <im>
   <div style="float: left;">
     <a class="feed-link"  onclick="location.href='/list?alive=false'" >
+      <!--ссылка на внешний ресурс-->
       <img alt="lost" border="o" src="https://f.vividscreen.info/soft/0ecac4bc4dd27b570f701a452f67fed1/Avengers-2-Age-of-Ultron-wide-l.jpg" title="Рис.1"width="300" height="200" /></a>
   </div>
   <div style="float: left;">

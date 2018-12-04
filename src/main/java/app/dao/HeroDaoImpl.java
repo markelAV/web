@@ -145,6 +145,7 @@ public class HeroDaoImpl implements HeroDao  {
         List<Hero> heroes = new ArrayList<Hero>();
         Hero hero = null;
 
+        //во всех методах есть бойлер плейт ConnectionDB.getConnection() и catch было бы хорошо сделать метод и инкапсулировать туда под
         Connection con =ConnectionDB.getConnection();//getInstance().getConnection2();//
         try{
             PreparedStatement pr = con.prepareStatement("select  id, name, universe, power, description, alive, phone, logo from heroes where alive=? ");

@@ -16,6 +16,7 @@
 <div class="w3-container w3-blue-grey w3-opacity w3-right-align">
     <h1>Add Hero</h1>
 </div>
+<!--по использованию jsp зачет-->
 <div class="w3-container w3-padding">
     <div class="w3-card-4">
         <div class="w3-card-4">
